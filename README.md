@@ -34,7 +34,7 @@ If there is no such object for that user then the user can login from anywhere
 
 ### `http://localhost:8000/api/statistics/class?data=<class/standand name>`
 This url expects the class/standard name. This can get from Report table - col: std.
-### `http://localhost:8000/api/statistics/student?data=<class/standand name>`
+### `http://localhost:8000/api/statistics/student?data=<student name/id>`
 This url expects the student name or id. This can get from IdMapping table - col: id, name.
-### `http://localhost:8000/api/statistics/year?data=<class/standand name>`
+### `http://localhost:8000/api/statistics/year?data=<student's passing year>`
 This url expects passing year of student. This can get from Report table - col: year.
