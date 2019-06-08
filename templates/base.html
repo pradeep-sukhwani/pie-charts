@@ -1,0 +1,153 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Progress Report">
+    <meta name="author" content="Pradeep Sukhwani">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.toast.min.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+    <title>{% block title_block %} {% endblock %} | Progress Report</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="{% url 'all-apis:home-template' %}">Progress Report</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-apis:statistics-template' search_text='class' %}">Class Wise Data
+                    <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-apis:statistics-template' search_text='student' %}">Student Wise Data
+                    <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-apis:statistics-template' search_text='year' %}">Yearly Data <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        {% if not user.is_authenticated %}
+            <button type="button" data-toggle="modal" data-target="#loginModal"
+                    class="btn btn-outline-primary my-2 my-sm-0">Login
+            </button>
+        {% else %}
+            <button type="button" data-toggle="modal" data-target="#logoutModal"
+                    class="btn btn-outline-danger my-2 my-sm-0">Logout
+            </button>
+        {% endif %}
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form" role="form" data-success-url="{% url 'all-apis:statistics-template' search_text='class' %}" autocomplete="off" id="formLogin" action="{% url 'login' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control form-control-lg" name="username" id="username">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control form-control-lg" id="password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" style="margin:auto; display:block;"
+                                        id="btnLogin">Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure want to logout?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-success-url="{% url 'all-apis:home-template' %}" data-url="{% url 'rest_logout' %}" id="logoutBtn" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" style="text-align: center; margin-top: 4%">
+        <div class="container" style="max-width: 540px;">
+            {% block content_body %}{% endblock %}
+        </div>
+    </div>
+
+</main>
+
+<footer class="container" style="text-align: center">
+    <p>&copy; Hand-made by me 2019</p>
+</footer>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="{% static 'js/jquery-validate.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/jquery.toast.min.js' %}"></script>
+
+<!--<script type="application/javascript">
+    $(".nav-link").click(function () {
+        document.cookie = "navLink=" + this.href.split("/")[4];
+    });
+    $(document).ready(function () {
+        let navLinkCookie = customScript.getCookie('navLink');
+        if (navLinkCookie){
+            let navLinks = $(".nav-link");
+            for (let i=0; i<navLinks.length; i++){
+                if (navLinks[i]['href'].split('/')[4] === navLinkCookie) {
+                    $(navLinks[i].closest('li')).addClass('active');
+                    customScript.delete_cookie('navLink');
+                    break;
+                }
+            }
+        }
+
+    })
+</script>-->
+</body>
+</html>

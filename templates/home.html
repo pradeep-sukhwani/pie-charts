@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title_block %} Home {% endblock %}
+{% block content_body %}
+    {% if user.is_authenticated %}
+        <h3>Hello, {{ user.username }}!</h3>
+        <p>Head over to any nav bar links to search for the graphical data</p>
+    {% else %}
+        <h3>Hello, user!</h3>
+        <p>First Login to search for the graphical data</p>
+    {% endif %}
+{% endblock %}

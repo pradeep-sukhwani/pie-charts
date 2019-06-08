@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title_block %} {{ query_from }} Data {% endblock %}
+{% block content_body %}
+    <form method="get" action="{% if query_from == 'Class wise' %}{% url 'all-apis:class_report' %}{% elif query_from == 'Student wise' %}{% url 'all-apis:student_report' %}{% else %}{% url 'all-apis:yearly_report' %}{% endif %}" id="statisticalData">
+        <div class="form-group">
+            <label><strong>Get Graphical Data</strong></label>
+        </div>
+        <div class="form-group">
+            <input {% if query_from != 'Student wise' %}type="number"{% else %}type="text"{% endif %} class="form-control" placeholder="{{ placeholder }}" name="data">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    {% if query_from != 'Class wise' %}
+        <div id="chartContainer" style="height: 300px;"></div>
+    {% else %}
+        <div id="totalStudentsChartContainer" style="height: 300px;"></div>
+        <br />
+        <div id="failStudentsChartContainer" style="height: 300px;"></div>
+        <br />
+        <div id="passStudentsChartContainer" style="height: 300px;"></div>
+    {% endif %}
+{% endblock %}
