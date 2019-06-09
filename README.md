@@ -31,9 +31,9 @@ All APIS can be called if the user is authenticated else it will throw login val
 This url accepts only post request. This will check if the Table Login has a specific ip address for that user from where only the user can login.
 If there is no such object for that user then the user can login from anywhere.
 
-### `http://localhost:8000/api/statistics/class?data=<class/standand name>`
+### `http://localhost:8000/api/statistics/class?data=<class/standard_name>`
 This url accepts only get request. This url expects the class/standard name. This can get from Report table - column: std.
-### `http://localhost:8000/api/statistics/student?data=<student name/id>`
+### `http://localhost:8000/api/statistics/student?data=<student_name/id>`
 This url accepts only get request. This url expects the student name or id. This can get from IdMapping table - column: id, name.
-### `http://localhost:8000/api/statistics/year?data=<student's passing year>`
+### `http://localhost:8000/api/statistics/year?data=<student's_passing year>`
 This url accepts only get request. This url expects passing year of student. This can get from Report table - column: year.
