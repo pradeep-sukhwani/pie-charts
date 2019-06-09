@@ -24,12 +24,12 @@ Run this command to create rows in database tables.
 
 
 ## Project API URLs
-All APIS can be called if the user is authenticated else it will throw login validation error.
-
 
 ### `http://localhost:8000/rest-auth/login/`
 This url accepts only post request. This will check if the Table Login has a specific ip address for that user from where only the user can login.
 If there is no such object for that user then the user can login from anywhere.
+
+### All the below APIS can be called if the user is authenticated else it will throw login validation error.
 
 ### `http://localhost:8000/api/statistics/class?data=<class/standard_name>`
 This url accepts only get request. This url expects the class/standard name. This can get from Report table - column: std.
